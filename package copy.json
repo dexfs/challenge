@@ -1,0 +1,65 @@
+{
+  "name": "video-chamada-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/server.js",
+    "test": "standard && jest --detectOpenHandles --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --detectOpenHandles --passWithNoTests --runInBand",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "class-validator": "^0.12.2",
+    "cors": "^2.8.5",
+    "cuid": "^2.1.8",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-rate-limit": "^5.2.3",
+    "express-validation": "^3.0.6",
+    "fast-glob": "^3.2.4",
+    "helmet": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
+    "nanoid": "^3.1.20",
+    "pg": "^8.5.1",
+    "sequelize": "^6.3.5",
+    "socket.io": "^3.0.3",
+    "uuid": "^8.3.1",
+    "uuidv4": "^6.2.5"
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.28.9",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "faker": "^5.1.0",
+    "husky": "^4.3.0",
+    "jest": "^26.6.3",
+    "jest-extended": "^0.11.5",
+    "lint-staged": "^10.5.3",
+    "sequelize-cli": "^6.2.0",
+    "standard": "^16.0.3",
+    "supertest": "^6.0.1"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@app": "./src/app",
+    "@orm": "./src/app/orm",
+    "@bootstrap": "./src/bootstrap",
+    "@database": "./src/database",
+    "@config": "./src/config",
+    "@shared": "./src/shared"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  }
+}
