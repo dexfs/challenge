@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/dexfs/challenge#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "class-validator": "^0.12.2",
     "cors": "^2.8.5",
     "cuid": "^2.1.8",
@@ -37,6 +38,7 @@
     "module-alias": "^2.2.2"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.19.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "faker": "^5.1.0",
     "husky": "^4.3.0",
@@ -50,7 +52,10 @@
     "@root": ".",
     "@app": "./src/app",
     "@bootstrap": "./src/bootstrap",
-    "@config": "./src/config"
+    "@config": "./src/config",
+    "@shared": "./src/shared",
+    "@routes": "./src/routes",
+    "@utils": "./src/utils"
   },
   "standard": {
     "env": [
