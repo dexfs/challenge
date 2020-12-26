@@ -1,17 +1,16 @@
 module.exports = {
   roots: ['<rootDir>/src/__tests__'],
   collectCoverageFrom: [
-    '!<rootDir>/src/main/**'
+    '!<rootDir>/src/main/**',
+    '!<rootDir>/src/__tests__/fixtures/**'
   ],
-  testPathIgnorePatterns: ['<rootDir>/src/__tests__/helpers/index.js'],
+  testPathIgnorePatterns: ['<rootDir>/src/__tests__/helpers/index.js', '<rootDir>/src/__tests__/fixtures/'],
   coverageDirectory: 'coverage',
   testEnvironment: 'node',
   moduleNameMapper: {
     '@root': '<rootDir>',
-    '@app': '<rootDir>/app',
-    '@orm': '<rootDir>/src/app/orm',
+    '@app': '<rootDir>/src/app',
     '@bootstrap': '<rootDir>/src/bootstrap',
-    '@database': '<rootDir>/src/database',
     '@config': '<rootDir>/src/config',
     '@shared': '<rootDir>/src/shared',
     '@routes': '<rootDir>/src/routes',
