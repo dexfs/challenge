@@ -57,3 +57,5 @@ tasks.md
 .env.dev
 !.env.example
 playground
+
+src/__tests__/**/__snapshots__
