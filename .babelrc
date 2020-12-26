@@ -6,9 +6,7 @@
         "alias": {
           "@root": ".",
           "@app": "./src/app",
-          "@orm": "./src/app/orm",
           "@bootstrap": "./src/bootstrap",
-          "@database": "./src/database",
           "@config": "./src/config",
           "@shared": "./src/shared",
           "@routes": "./src/routes",
