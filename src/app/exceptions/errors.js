@@ -23,6 +23,11 @@ class GeneralError extends Error {
     if (this instanceof NotFound) {
       return 404
     }
+
+    if (this instanceof NetworkError) {
+      return 503
+    }
+
     return 500
   }
 }
@@ -35,5 +40,12 @@ class Unauthorized extends GeneralError {
     this.name = 'Unauthorized'
   }
 }
+class NetworkError extends GeneralError {
+  constructor (message) {
+    super(message)
+    this.name = 'NetworkError'
+    this.code = 503
+  }
+}
 
-module.exports = { GeneralError, BadRequest, NotFound, Unauthorized }
+module.exports = { GeneralError, BadRequest, NotFound, Unauthorized, NetworkError }
