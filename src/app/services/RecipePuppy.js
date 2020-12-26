@@ -1,7 +1,7 @@
 const { NotFound, GeneralError, NetworkError } = require('@app/exceptions/errors')
-const config = require('@config')()
+
 class RecipePuppy {
-  constructor (http) {
+  constructor ({ http, config }) {
     this.http = http
     this.endpoint = config.apiRecipePuppyEndpoint
   }

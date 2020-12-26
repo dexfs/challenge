@@ -1,11 +1,13 @@
+require('dotenv-flow').config()
 const axios = require('axios')
 const MockAdapter = require('axios-mock-adapter')
 const HttpAxiosAdapter = require('@app/adapters/httpAxiosAdapter')
 const RecipePuppyService = require('@app/services/RecipePuppy')
+const config = require('@config')()
 const recipePuppyJson = require('../fixtures/recipepuppy.json')
 const makeSut = () => {
   const httpAdapter = new HttpAxiosAdapter()
-  const service = new RecipePuppyService(httpAdapter)
+  const service = new RecipePuppyService({ http: httpAdapter, config })
 
   return {
     httpAdapter,
@@ -20,6 +22,7 @@ const makeMockAxios = () => {
 
 describe('RecipePuppyService', () => {
   const uri = 'http://www.recipepuppy.com/api/?i=onions,garlic'
+
   it('should be called with HttpAxiosAdapter', () => {
     const { service } = makeSut()
     expect(service.http).toBeInstanceOf(HttpAxiosAdapter)
@@ -28,6 +31,8 @@ describe('RecipePuppyService', () => {
   it('should be build with correct args', async () => {
     const { service, httpAdapter } = makeSut()
     const httpSpy = jest.spyOn(httpAdapter, 'get')
+    const mockAxios = makeMockAxios()
+    mockAxios.onGet(uri).reply(200, recipePuppyJson)
     await service.getRecipesByIngredients({ ingredients: 'onions,garlic' })
     expect(httpSpy).toHaveBeenCalledWith(uri)
   })
