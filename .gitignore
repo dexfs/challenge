@@ -56,3 +56,4 @@ tasks.md
 .env.test
 .env.dev
 !.env.example
+playground
