@@ -9,7 +9,11 @@ class RecipePuppy {
 
   async getRecipesByIngredients (query) {
     try {
-      const { data } = await this.http.get(`${this.endpoint}?i=${query.ingredients}`)
+      const { data } = await this.http.get(`${this.endpoint}`, {
+        params: {
+          i: query.ingredients
+        }
+      })
       const dataTransformed = this.transformer.input(data.results).get()
       return { recipes: dataTransformed }
     } catch (error) {

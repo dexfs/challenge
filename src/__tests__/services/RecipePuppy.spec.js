@@ -23,7 +23,8 @@ const makeMockAxios = () => {
 }
 
 describe('RecipePuppyService', () => {
-  const uri = 'http://www.recipepuppy.com/api/?i=onions,garlic'
+  // const uri = 'http://www.recipepuppy.com/api/?i=onions,garlic'
+  const uri = `${config.apiRecipePuppyEndpoint}`
 
   it('should be called with HttpAxiosAdapter', () => {
     const { service } = makeSut()
@@ -34,9 +35,17 @@ describe('RecipePuppyService', () => {
     const { service, httpAdapter } = makeSut()
     const httpSpy = jest.spyOn(httpAdapter, 'get')
     const mockAxios = makeMockAxios()
-    mockAxios.onGet(uri).reply(200, recipePuppyJson)
+    mockAxios.onGet(uri, {
+      params: {
+        i: 'onions,garlic'
+      }
+    }).reply(200, recipePuppyJson)
     await service.getRecipesByIngredients({ ingredients: 'onions,garlic' })
-    expect(httpSpy).toHaveBeenCalledWith(uri)
+    expect(httpSpy).toHaveBeenCalledWith(uri, {
+      params: {
+        i: 'onions,garlic'
+      }
+    })
   })
 
   it('should return only results property', async () => {
