@@ -4,7 +4,7 @@
   "description": "Bem vindo(a)! Esse é o Delivery Much Tech Challenge.",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/server.js",
+    "dev": "NODE_ENV=development node src/server.js",
     "test": "standard && jest --detectOpenHandles --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --detectOpenHandles --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
