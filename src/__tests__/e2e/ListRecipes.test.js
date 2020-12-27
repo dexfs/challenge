@@ -35,6 +35,11 @@ describe('ListRecipesAction', () => {
     expect(response.body).toMatchSnapshot()
     done()
   })
+  it('should return 400 if query param not passed', async (done) => {
+    const response = await request.get('/recipes/')
+    expect(response.status).toBe(400)
+    done()
+  })
   it('should return 403 if Giphy API KEY no passed', async (done) => {
     const query = 'onions,tomato'
     const mockAxios = makeMockAxios()
