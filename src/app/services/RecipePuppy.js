@@ -1,16 +1,19 @@
 const { NotFound, GeneralError, NetworkError } = require('@app/exceptions/errors')
 
 class RecipePuppy {
-  constructor ({ http, config }) {
+  constructor ({ http, config, transformer }) {
     this.http = http
     this.endpoint = config.apiRecipePuppyEndpoint
+    this.transformer = transformer
   }
 
   async getRecipesByIngredients (query) {
     try {
       const { data } = await this.http.get(`${this.endpoint}?i=${query.ingredients}`)
-      return { recipes: data.results }
+      const dataTransformed = this.transformer.input(data.results).get()
+      return { recipes: dataTransformed }
     } catch (error) {
+      console.error({ error })
       if (error.message === 'Network Error') {
         throw new NetworkError(error.message)
       }
