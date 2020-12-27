@@ -16,19 +16,24 @@ const makeMockAxios = () => {
   return mockAxios
 }
 
+const makeParams = () => ({
+  params: {
+    i: 'onions,tomato'
+  }
+})
+
 describe('ListRecipesAction', () => {
   let request
   beforeAll(async () => {
     request = await startTestServer()
   })
   it('should list recipes when ingredients passed', async (done) => {
-    const query = 'onions,tomato'
     const mockAxios = makeMockAxios()
-    const recipeRequest = `${config.apiRecipePuppyEndpoint}?i=${query}`
-    mockAxios.onGet(recipeRequest).replyOnce(200, recipePuppyJson)
+    const recipeRequest = `${config.apiRecipePuppyEndpoint}`
+    mockAxios.onGet(recipeRequest, makeParams()).replyOnce(200, recipePuppyJson)
     mockAxios.onAny().reply(200, giphyJson)
 
-    const response = await request.get(`/recipes/?i=${query}`)
+    const response = await request.get('/recipes/?i=onions,tomato')
     expect(response.body).toHaveProperty('keywords')
     expect(response.body).toHaveProperty('recipes')
     expect(response.body.keywords).toEqual(['onions', 'tomato'])
@@ -41,10 +46,9 @@ describe('ListRecipesAction', () => {
     done()
   })
   it('should return 403 if Giphy API KEY no passed', async (done) => {
-    const query = 'onions,tomato'
     const mockAxios = makeMockAxios()
-    const recipeRequest = `${config.apiRecipePuppyEndpoint}?i=${query}`
-    mockAxios.onGet(recipeRequest).replyOnce(200, {
+    const recipeRequest = `${config.apiRecipePuppyEndpoint}`
+    mockAxios.onGet(recipeRequest, makeParams()).replyOnce(200, {
       title: 'Recipe Puppy',
       version: 0.1,
       href: 'http://www.recipepuppy.com/',
@@ -64,7 +68,7 @@ describe('ListRecipesAction', () => {
         q: 'any_title'
       }
     }).replyOnce(403, 'Forbiden')
-    const response = await request.get(`/recipes/?i=${query}`)
+    const response = await request.get('/recipes/?i=onions,tomato')
     expect(response.status).toBe(403)
     expect(response.body).toHaveProperty('status')
     expect(response.body).toHaveProperty('message')
@@ -72,11 +76,10 @@ describe('ListRecipesAction', () => {
   })
 
   it('should return 503 if Recipe Service is unavailable', async (done) => {
-    const query = 'onions,tomato'
     const mockAxios = makeMockAxios()
-    const recipeRequest = `${config.apiRecipePuppyEndpoint}?i=${query}`
-    mockAxios.onGet(recipeRequest).networkError()
-    const response = await request.get(`/recipes/?i=${query}`)
+    const recipeRequest = `${config.apiRecipePuppyEndpoint}`
+    mockAxios.onGet(recipeRequest, makeParams()).networkError()
+    const response = await request.get('/recipes/?i=onions,tomato')
     console.log(response.body)
     expect(response.status).toBe(503)
     expect(response.body).toHaveProperty('status')
@@ -86,10 +89,9 @@ describe('ListRecipesAction', () => {
   })
 
   it('should return 403 if Giphy API KEY no passed', async (done) => {
-    const query = 'onions,tomato'
     const mockAxios = makeMockAxios()
-    const recipeRequest = `${config.apiRecipePuppyEndpoint}?i=${query}`
-    mockAxios.onGet(recipeRequest).replyOnce(200, {
+    const recipeRequest = `${config.apiRecipePuppyEndpoint}`
+    mockAxios.onGet(recipeRequest, makeParams()).replyOnce(200, {
       title: 'Recipe Puppy',
       version: 0.1,
       href: 'http://www.recipepuppy.com/',
@@ -109,7 +111,7 @@ describe('ListRecipesAction', () => {
         q: 'any_title'
       }
     }).networkError()
-    const response = await request.get(`/recipes/?i=${query}`)
+    const response = await request.get('/recipes/?i=onions,tomato')
     expect(response.status).toBe(503)
     expect(response.body).toHaveProperty('status')
     expect(response.body).toHaveProperty('message')

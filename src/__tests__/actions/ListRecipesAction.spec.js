@@ -14,21 +14,26 @@ const makeSut = () => {
   return { action }
 }
 
-const makeMockAxios = ({ queryRecipe }) => {
+const makeParams = () => ({
+  params: {
+    i: 'onions,tomato'
+  }
+})
+
+const makeMockAxios = () => {
   const mockAxios = new MockAdapter(axios)
-  const recipeRequest = `${config.apiRecipePuppyEndpoint}?i=${queryRecipe}`
-  mockAxios.onGet(recipeRequest).replyOnce(200, recipePuppyJson)
+  const recipeRequest = `${config.apiRecipePuppyEndpoint}`
+  mockAxios.onGet(recipeRequest, makeParams()).replyOnce(200, recipePuppyJson)
   mockAxios.onAny().reply(200, giphyJson)
   return mockAxios
 }
 
 describe('ListRecipesAction', () => {
   it('should return list recipes with its gif', async () => {
-    const query = 'onions,tomato'
-    makeMockAxios({ queryRecipe: query })
+    makeMockAxios()
 
     const { action } = makeSut()
-    const result = await action.execute({ i: query })
+    const result = await action.execute({ i: 'onions,tomato' })
     expect(result).toHaveProperty('keywords')
     expect(result).toHaveProperty('recipes')
     expect(result.keywords).toEqual(['onions', 'tomato'])
