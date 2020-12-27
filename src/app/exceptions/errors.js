@@ -51,8 +51,8 @@ class Unauthorized extends GeneralError {
   }
 }
 class NetworkError extends GeneralError {
-  constructor (message) {
-    super(message)
+  constructor () {
+    super('Service Unavailable')
     this.name = 'NetworkError'
     this.code = 503
   }

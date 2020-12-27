@@ -15,7 +15,7 @@ class RecipePuppy {
     } catch (error) {
       console.error({ error })
       if (error.message === 'Network Error') {
-        throw new NetworkError(error.message)
+        throw new NetworkError()
       }
 
       const { status, data } = error.response

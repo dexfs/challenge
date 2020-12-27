@@ -17,9 +17,8 @@ class Giphy {
       })
       return { gif: data.data[0]?.images?.original?.url || null }
     } catch (error) {
-      console.log({ error })
       if (error.message === 'Network Error') {
-        throw new NetworkError(error.message)
+        throw new NetworkError()
       }
       const { status, data } = error.response
       if (status === 403) {
