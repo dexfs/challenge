@@ -1,5 +1,4 @@
+const IndexController = require('@app/http/recipes/controllers/IndexController')
 module.exports = (router) => {
-  router.get('/recipes', (req, res) => {
-    return res.json('ok')
-  })
+  router.get('/recipes', IndexController.index)
 }
