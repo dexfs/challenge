@@ -59,4 +59,4 @@ tasks.md
 !.env.example
 playground
 
-src/__tests__/**/__snapshots__
+# src/__tests__/**/__snapshots__
