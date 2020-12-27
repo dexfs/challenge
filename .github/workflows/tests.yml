@@ -17,7 +17,7 @@ jobs:
       run: npm ci
 
     - name: Running tests
-      run: npm test
+      run: npm test -u
       env:
         GIPHY_API_TOKEN: __TOKEN__
         GIPHY_API_ENDPOINT: __ENDPOINT__
