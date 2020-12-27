@@ -24,16 +24,10 @@
 -
 
 ## ❯ Installation
-
-```bash
-$ npm
-```
-
-Database with docker
-
 ```
 $ docker-compose up -d
 ```
+
 > Isto vai criar o container com a aplicação rodando na porta 3000.
 > As opções de enviroments(NODE_ENV): production | develpment | test
 > O docker-compose usa o .env.develpoment
