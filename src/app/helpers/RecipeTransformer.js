@@ -4,8 +4,13 @@ const stringToArray = (ingredients) => {
   return ingredientesArray.map(item => item.trim())
 }
 class RecipeTransformer {
-  constructor (data) {
+  input (data) {
+    if (!Array.isArray(data)) {
+      throw new Error('The data should be an array')
+    }
+
     this.data = data
+    return this
   }
 
   get () {

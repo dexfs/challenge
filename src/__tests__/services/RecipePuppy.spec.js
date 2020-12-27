@@ -2,12 +2,14 @@ require('dotenv-flow').config()
 const axios = require('axios')
 const MockAdapter = require('axios-mock-adapter')
 const HttpAxiosAdapter = require('@app/adapters/httpAxiosAdapter')
+const RecipeTransformer = require('@app/helpers/RecipeTransformer')
 const RecipePuppyService = require('@app/services/RecipePuppy')
 const config = require('@config')()
 const recipePuppyJson = require('../fixtures/recipepuppy.json')
 const makeSut = () => {
+  const transformer = new RecipeTransformer()
   const httpAdapter = new HttpAxiosAdapter()
-  const service = new RecipePuppyService({ http: httpAdapter, config })
+  const service = new RecipePuppyService({ http: httpAdapter, config, transformer })
 
   return {
     httpAdapter,
