@@ -1,7 +1,6 @@
 const HttpAxiosAdapter = require('@app/adapters/httpAxiosAdapter')
 const GiphyService = require('@app/services/Giphy')
 const config = require('@config')()
-
 class GifServiceFactory {
   static create (type) {
     switch (type) {

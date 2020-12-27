@@ -27,14 +27,19 @@ describe('Giphy Service', () => {
   })
 
   it('should be build with correct args', async () => {
-    const title = 'Vegetable-Pasta Oven Omelet'
-    const expected = `${config.apiGiphyEndpoint}?api_key=${config.apiGiphyKey}&q=${title}`
+    const title = 'any_title'
     const { service, httpAdapter } = makeSut()
     const mockAxios = makeMockAxios()
-    mockAxios.onGet(expected).reply(200, giphyJson)
+    const mockParams = {
+      params: {
+        api_key: config.apiGiphyKey,
+        q: title
+      }
+    }
+    mockAxios.onGet(config.apiGiphyEndpoint, mockParams).reply(200, giphyJson)
     const httpSpy = jest.spyOn(httpAdapter, 'get')
     await service.getGifByRecipeTitle(title)
-    expect(httpSpy).toHaveBeenCalledWith(expected)
+    expect(httpSpy).toHaveBeenCalledWith(config.apiGiphyEndpoint, mockParams)
   })
 
   it('should return gif property', async () => {
