@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    env_file: ./.env.test
+    container_name: develivery_much_challenge_test
+    command: npm test
+    environment:
+      - NODE_ENV=test
+    volumes:
+    - $PWD:/var/www/app
+    ports:
+    - 3000:3000
+    networks:
+    - dmuch-network
+
+
+volumes:
+  nodemodules: {}
+
+networks:
+  dmuch-network:
+    driver: bridge
